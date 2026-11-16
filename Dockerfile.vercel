@@ -1,11 +1,12 @@
-# Dockerfile for running this PHP site with FrankenPHP + Caddy.
-# Note: this is for Docker/VPS/container hosting, not Vercel's native PHP runtime.
+# PHP site runtime for Vercel Container
 FROM dunglas/frankenphp:1-php8.3
 
 WORKDIR /app
-COPY . /app
 
-# Caddy serves the site on port 80.
+# Copy the website source and the Caddy configuration used to serve PHP.
+COPY . /app
+COPY Caddyfile /etc/caddy/Caddyfile
+
 EXPOSE 80
 
 CMD ["frankenphp", "run", "--config", "/etc/caddy/Caddyfile"]
