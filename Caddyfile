@@ -1,0 +1,14 @@
+:80 {
+    root * /app
+
+    encode zstd gzip
+
+    # Serve PHP through FrankenPHP.
+    php_server
+
+    # Prevent access to common private/config files.
+    @private {
+        path /.env* /.git/* /composer.* /Dockerfile* /Caddyfile
+    }
+    respond @private 404
+}
